@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+
+<head>
+    <title>НОВОСТИ</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <script>
+        function changeColor() {
+            var body = document.body;
+            var backgroundColor = body.style.backgroundColor;
+
+            if (backgroundColor === "white" || backgroundColor === "") {
+                body.style.backgroundColor = "#010910";;
+            } else {
+                body.style.backgroundColor = "white";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <h1 class='logo'>НОВОСТИ</h1>
+    </nav>
+    <br />
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="search_query" placeholder="Введите категорию новостей...">
+        <button type="submit">Поиск</button>
+    </form>
+    <button id="changeColorBtn" onclick="changeColor()">Сменить фон</button>
+    {% for item in news_items %}
+        <div class='container'>
+            <h2>{{item.title}}</h2>
+            <p>{{item.description}}</p>
+            <a href="{{item.url}}">Ссылка на источник</a>
+        </div>
+    {% endfor %}
+</body>
+
+</html>
